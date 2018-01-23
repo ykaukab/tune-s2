@@ -73,7 +73,7 @@ int check_frontend (int frontend_fd)
 
 	lvl_scale = p_status.props[0].u.st.stat[0].scale;
 	if (lvl_scale == FE_SCALE_DECIBEL) {
-		lvl = p_status.props[0].u.st.stat[0].svalue * 0.0001;
+		lvl = p_status.props[0].u.st.stat[0].svalue * 0.001;
 	} else {
 		int lvl2;
 		if (ioctl(frontend_fd, FE_READ_SIGNAL_STRENGTH, &lvl2) == -1) {
@@ -87,7 +87,7 @@ int check_frontend (int frontend_fd)
 	}
 	snr_scale = p_status.props[1].u.st.stat[0].scale;
 	if (snr_scale == FE_SCALE_DECIBEL) {
-		snr = p_status.props[1].u.st.stat[0].svalue * .0001;
+		snr = p_status.props[1].u.st.stat[0].svalue * .001;
 	} else {
 		unsigned int snr2 = 0;
 		if (ioctl(frontend_fd, FE_READ_SNR, &snr2) == -1) {

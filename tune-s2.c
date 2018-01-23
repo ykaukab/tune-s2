@@ -149,11 +149,10 @@ int tune(int frontend_fd, struct tune_p *t)
 		{ .cmd = DTV_ROLLOFF,			.u.data = t->rolloff },
 		{ .cmd = DTV_BANDWIDTH_HZ,		.u.data = 0 },
 		{ .cmd = DTV_PILOT,				.u.data = t->pilot },
-		{ .cmd = DTV_DVBS2_MIS_ID,		.u.data = t->mis },
 		{ .cmd = DTV_TUNE },
 	};
 	struct dtv_properties cmdseq_tune = {
-		.num = 13,
+		.num = 12,
 		.props = p_tune
 	};
 
@@ -166,7 +165,6 @@ int tune(int frontend_fd, struct tune_p *t)
 	printf("Inversion:  %s \n", value2name(p_tune[7].u.data, dvb_inversion));
 	printf("Rolloff:    %s \n", value2name(p_tune[8].u.data, dvb_rolloff));
 	printf("Pilot:      %s \n", value2name(p_tune[10].u.data, dvb_pilot));
-	printf("MIS:        %d \n\n", p_tune[11].u.data);
 
 	if (ioctl(frontend_fd, FE_SET_PROPERTY, &cmdseq_tune) == -1) {
 		perror("FE_SET_PROPERTY TUNE failed");
@@ -209,12 +207,11 @@ int tune(int frontend_fd, struct tune_p *t)
 		{ .cmd = DTV_ROLLOFF },
 		{ .cmd = DTV_BANDWIDTH_HZ },
 		{ .cmd = DTV_PILOT },
-		{ .cmd = DTV_DVBS2_MIS_ID },
 		{ .cmd = DTV_FRAME_LEN }
 	};
 
 	struct dtv_properties p_status = {
-		.num = 13,
+		.num = 12,
 		.props = p
 	};
 
@@ -254,10 +251,9 @@ int tune(int frontend_fd, struct tune_p *t)
 		if(p_status.props[10].u.data)
 			printf("Pilot:      ON %d \n",p_status.props[10].u.data);
 		else	printf("Pilot:      OFF %d \n",p_status.props[10].u.data);
-		printf("MIS:        %d \n", p_status.props[11].u.data);
-		if(p_status.props[12].u.data == 0)
-			printf("FRAME_LEN:  LONG %d \n", p_status.props[12].u.data);
-		else	printf("FRAME_LEN:  SHORT %d \n", p_status.props[12].u.data);
+		if(p_status.props[11].u.data == 0)
+			printf("FRAME_LEN:  LONG %d \n", p_status.props[11].u.data);
+		else	printf("FRAME_LEN:  SHORT %d \n", p_status.props[11].u.data);
   		printf("Bandwidth:  %3.4f MHz \n", bw);
   		printf("Data Rate:  %3.4f Mbps \n", dr);
 
@@ -354,7 +350,6 @@ char *usage =
 	"	-rolloff       : rolloff 35=0.35 25=0.25 20=0.20 0=UNKNOWN\n"
 	"	-inversion N   : spectral inversion (OFF / ON / AUTO [default])\n"
 	"	-pilot N       : pilot (OFF / ON / AUTO [default])\n"
-	"	-mis N         : MIS #\n"
 	"	-quit          : quit after tuning, used to time lock aquisition"
 	"	-help          : help\n";
 
@@ -397,7 +392,6 @@ int main(int argc, char *argv[])
 	t.freq		= strtoul(argv[1], NULL, 0);
 	t.voltage	= name2value(argv[2], dvb_voltage);
 	t.sr		= strtoul(argv[3], NULL, 0);
-	t.mis		= -1;
 
 	int a;
 	for( a = 4; a < argc; a++ )
@@ -449,8 +443,6 @@ int main(int argc, char *argv[])
 			t.inversion = name2value(argv[a+1], dvb_inversion);
 		if ( !strcmp(argv[a], "-pilot") )
 			t.pilot = name2value(argv[a+1], dvb_pilot);
-		if ( !strcmp(argv[a], "-mis") )
-			t.mis = strtoul(argv[a+1], NULL, 0);
 		if ( !strcmp(argv[a], "-help") )
 		{
 			printf("%s", usage);

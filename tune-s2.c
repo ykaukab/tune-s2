@@ -350,7 +350,7 @@ char *usage =
 	"	-rolloff       : rolloff 35=0.35 25=0.25 20=0.20 0=UNKNOWN\n"
 	"	-inversion N   : spectral inversion (OFF / ON / AUTO [default])\n"
 	"	-pilot N       : pilot (OFF / ON / AUTO [default])\n"
-	"	-quit          : quit after tuning, used to time lock aquisition"
+	"	-quit          : quit after tuning, used to time lock aquisition\n"
 	"	-help          : help\n";
 
 int main(int argc, char *argv[])

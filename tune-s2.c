@@ -22,8 +22,8 @@
 
 #include "tune-s2.h"
 
-#if DVB_API_VERSION < 5
-#error tune-s2 requires Linux DVB driver API version 5.0 or newer!
+#if DVB_API_VERSION < 5 || DVB_API_VERSION_MINOR < 10 
+#error tune-s2 requires Linux DVB driver API version 5.10 and newer!
 #endif
 
 int name2value(char *name, struct options *table)

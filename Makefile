@@ -4,6 +4,8 @@ OBJ=kb.o diseqc.o tune-s2.o
 
 BIND=/usr/local/bin/
 
+CFLG ?= -O3 -Wall
+
 TARGET=tune-s2
 
 all: $(TARGET)

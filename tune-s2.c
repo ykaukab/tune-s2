@@ -207,11 +207,10 @@ int tune(int frontend_fd, struct tune_p *t)
 		{ .cmd = DTV_ROLLOFF },
 		{ .cmd = DTV_BANDWIDTH_HZ },
 		{ .cmd = DTV_PILOT },
-		{ .cmd = DTV_FRAME_LEN }
 	};
 
 	struct dtv_properties p_status = {
-		.num = 12,
+		.num = 11,
 		.props = p
 	};
 

@@ -107,7 +107,6 @@ struct options dvb_system[] =
 	{ "DAB", SYS_DAB },
 	{ "ATSC", SYS_ATSC },
 	{ "TURBO", SYS_TURBO },
-	{ "DCII", SYS_DCII },
 	{ NULL, 0 }
 };
 
@@ -126,10 +125,6 @@ struct options dvb_modulation[] =
 	{ "APSK_16", APSK_16 },
 	{ "APSK_32", APSK_32 },
 	{ "DQPSK", DQPSK },
-	{ "C_QPSK", C_QPSK },
-	{ "I_QPSK", I_QPSK },
-	{ "Q_QPSK", Q_QPSK },
-	{ "C_OQPSK", C_OQPSK },
 	{ NULL, 0 }
 };
 
